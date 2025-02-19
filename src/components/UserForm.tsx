@@ -4,14 +4,6 @@ import { v4 as uuidv4 } from 'uuid'; // For generating unique IDs
 import * as localForage from 'localforage'; // using localforage to store data
 import { UserData } from './types';
 
-// interface UserData {
-//     id: string;
-//     name: string;
-//     address: string;
-//     email: string;
-//     phone: string;
-//   }
-
 const UserForm: React.FC = () => {
   const [userData, setUserData] = useState<UserData>({
     id: '',
@@ -38,13 +30,13 @@ const UserForm: React.FC = () => {
     setUserData(newData);
 
     localForage.setItem('userData', newData)
-    .then(() => {
-      console.log('User data saved to local storage');
-      setIsDirty(false); // Reset dirty flag after saving
-    })
-    .catch((err) => {
-      console.error('Error saving user data:', err);
-    });
+      .then(() => {
+        console.log('User data saved to local storage');
+        setIsDirty(false); // Reset dirty flag after saving
+      })
+      .catch((err) => {
+        console.error('Error saving user data:', err);
+      });
   };
 
   // Unsaved Changes Warning
@@ -64,7 +56,6 @@ const UserForm: React.FC = () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [isDirty]);
-
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, p: 2 }}>

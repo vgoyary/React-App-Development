@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';  // Import styles
 import { Box, Typography } from '@mui/material';
 import * as localForage from 'localforage';
@@ -82,7 +82,7 @@ const RichTextEditor: React.FC = () => {
         value={editorContent}
         onChange={handleChange}
         modules={modules}
-        style={{height: '300px'}} // Adjust height as needed
+        style={{height: '300px'}}
       />
     </Box>
   );
