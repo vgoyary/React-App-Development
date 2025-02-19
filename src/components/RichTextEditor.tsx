@@ -5,31 +5,30 @@ import { Box, Typography } from '@mui/material';
 import * as localForage from 'localforage';
 import { UserData } from './types';
 
-// Custom toolbar options (optional)
 const modules = {
   toolbar: [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['bold', 'italic', 'underline', 'strike'],        
     ['blockquote', 'code-block'],
 
     [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-    [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
+    [{ 'script': 'sub' }, { 'script': 'super' }],      
+    [{ 'indent': '-1' }, { 'indent': '+1' }],          
+    [{ 'direction': 'rtl' }],                         
 
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'size': ['small', false, 'large', 'huge'] }],  
     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'color': [] }, { 'background': [] }],          
     [{ 'font': [] }],
     [{ 'align': [] }],
 
-    ['clean']                                         // remove formatting button
+    ['clean']                                    
   ],
 };
 
 const RichTextEditor: React.FC = () => {
   const [editorContent, setEditorContent] = useState<string>('');
-  const [userData, setUserData] = useState<UserData | null>(null); // Type appropriately
+  const [, setUserData] = useState<UserData | null>(null); 
 
 
   function isUserData(data: any): data is UserData {
@@ -59,7 +58,7 @@ const RichTextEditor: React.FC = () => {
           setEditorContent(formattedContent);
         } else {
           console.warn('Invalid user data in local storage');
-          setUserData(null); // Or handle the error in another way
+          setUserData(null); 
         }
       })
       .catch((err) => {
@@ -89,3 +88,7 @@ const RichTextEditor: React.FC = () => {
 };
 
 export default RichTextEditor;
+
+function setInitialized(arg0: boolean) {
+  throw new Error('Function not implemented.');
+}

@@ -1,66 +1,48 @@
-import React, { useState, useCallback } from 'react';
-import { motion } from 'framer-motion';  // Import motion from framer-motion
-import { Button, Box } from '@mui/material';  // MUI components
+import React from "react";
+import { motion } from "framer-motion";
+import { Button, Box, Typography } from "@mui/material";
 
 interface CounterProps {
-  initialCount?: number; // Optional initial count
+  count: number;
+  increment: () => void;
+  decrement: () => void;
+  reset: () => void;
 }
 
-const Counter: React.FC<CounterProps> = ({ initialCount = 0 }) => {
-  const [count, setCount] = useState<number>(initialCount);
-
-  const increment = useCallback(() => {
-    setCount(prevCount => prevCount + 1);
-  }, []);
-
-  const decrement = useCallback(() => {
-    setCount(prevCount => prevCount - 1);
-  }, []);
-
-  const reset = useCallback(() => {
-    setCount(0);
-    setLevel(0);
-  }, []);
-
-  const [level, setLevel] = useState(0);
-
-  const updateLevel = useCallback(() => {
-    setLevel(prevLevel => {
-      const newLevel = Math.min(prevLevel + 1, 10); // Limit to max level 10
-      return newLevel;
-    });
-  }, []);
-
-  // Animation Variants
+// Accept props in Counter Component
+const Counter: React.FC<CounterProps> = ({ count, increment, decrement, reset }) => {
+  // Animation Variants for Background (Bezier Curve Effect)
   const boxVariants = {
-    initial: { height: 0, backgroundColor: 'rgba(0, 123, 255, 0)' },
+    initial: { height: 0, backgroundColor: "rgba(0, 123, 255, 0)" },
     animate: {
-      height: `${level * 10}px`, // Adjust factor as needed
-      backgroundColor: `rgba(0, 123, 255, ${level * 0.1})`, // Example color change
-      transition: { duration: 0.3, ease: "easeInOut" }, // Customize animation
+      height: `${count * 10}px`, // Level increases linearly
+      backgroundColor: `rgba(0, 123, 255, ${Math.min(count * 0.1, 1)})`, // Max opacity 1
+      transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }, // Bezier Curve
     },
   };
 
   return (
-    <Box sx={{textAlign: 'center', padding: '20px'}}>
+    <Box sx={{ textAlign: "center", padding: "20px" }}>
+      {/* Background Animation */}
       <motion.div
-        style={{ width: '100%', transition: 'height 0.3s ease' }}
+        style={{ width: "100%", transition: "height 0.3s ease", borderRadius: "10px" }}
         variants={boxVariants}
         initial="initial"
         animate="animate"
       >
         <Box p={2}>
-          <h2>Counter: {count}</h2>
+          <Typography variant="h5">Counter: {count}</Typography>
         </Box>
       </motion.div>
 
-      <Button variant="contained" onClick={increment} sx={{ margin: '5px' }} onMouseDown={updateLevel}>
+      {/* Buttons */}
+      <Button variant="contained" onClick={increment} sx={{ margin: "5px" }}>
         Increment
       </Button>
-      <Button variant="contained" onClick={decrement} sx={{ margin: '5px' }}>
+      <Button variant="contained" onClick={decrement} sx={{ margin: "5px" }}>
         Decrement
       </Button>
-      <Button variant="contained" color="error" onClick={reset} sx={{ margin: '5px' }}>
+      <Button variant="contained" color="error" onClick={reset} sx={{ margin: "5px" }}>
         Reset
       </Button>
     </Box>
